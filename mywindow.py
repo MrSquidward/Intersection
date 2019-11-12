@@ -1,5 +1,14 @@
 import tkinter as tk
+import math as m
 
+def findNearestPoint(Pt, ComparedPt1, ComparedPt2):
+    distancePt1 = m.sqrt(((Pt[0]-ComparedPt1[0])**2) + ((Pt[1]-ComparedPt1[1])**2))
+    distancePt2 = m.sqrt(((Pt[0]-ComparedPt2[0])**2) + ((Pt[1]-ComparedPt2[1])**2))
+
+    if distancePt1 <= distancePt2:
+        return ComparedPt1
+    else:
+        return ComparedPt2
         
 class points:
     px, py = 0.0, 0.0
@@ -15,9 +24,10 @@ class points:
 
         sX = canMaxX / (maxY - minY)
         sY = canMaxY / (maxX - minX)
-
-        scaledX = 25 +  sX * (y - minY)
-        scaledY = 25 +  canMaxY - (sY * (x - minX))
+        
+        margin = 25
+        scaledX = margin +  sX * (y - minY)
+        scaledY = margin +  canMaxY - (sY * (x - minX))
         
         return (scaledX, scaledY)
 
@@ -31,15 +41,21 @@ class points:
         
         canvas.create_line(sPa[0], sPa[1], sPb[0], sPb[1])
         canvas.create_line(sPc[0], sPc[1], sPd[0], sPd[1])
+
+        if not (self.t1 >= 0 and self.t1 <= 1):
+            nearestPt = findNearestPoint(sPp, sPa, sPb)
+            canvas.create_line(sPp[0], sPp[1], nearestPt[0], nearestPt[1], dash=(6, 4))
         
-        canvas.create_line(sPp[0], sPp[1], sPb[0], sPb[1], dash=(6, 4))
-        canvas.create_line(sPp[0], sPp[1], sPd[0], sPd[1], dash=(6, 4))
-        
-        canvas.create_oval(sPp[0]-5, sPp[1]-5, sPp[0]+5, sPp[1]+5, fill="red")
-        canvas.create_oval(sPa[0]-5, sPa[1]-5, sPa[0]+5, sPa[1]+5, fill="black")
-        canvas.create_oval(sPb[0]-5, sPb[1]-5, sPb[0]+5, sPb[1]+5, fill="black")
-        canvas.create_oval(sPc[0]-5, sPc[1]-5, sPc[0]+5, sPc[1]+5, fill="black")
-        canvas.create_oval(sPd[0]-5, sPd[1]-5, sPd[0]+5, sPd[1]+5, fill="black")
+        if not (self.t2 >=0 and self.t2 <= 1):
+            nearestPt = findNearestPoint(sPp, sPc, sPd)
+            canvas.create_line(sPp[0], sPp[1], nearestPt[0], nearestPt[1], dash=(6, 4))
+
+        rad = 5 #radius
+        canvas.create_oval(sPp[0]-rad, sPp[1]-rad, sPp[0]+rad, sPp[1]+rad, fill="red")
+        canvas.create_oval(sPa[0]-rad, sPa[1]-rad, sPa[0]+rad, sPa[1]+rad, fill="black")
+        canvas.create_oval(sPb[0]-rad, sPb[1]-rad, sPb[0]+rad, sPb[1]+rad, fill="black")
+        canvas.create_oval(sPc[0]-rad, sPc[1]-rad, sPc[0]+rad, sPc[1]+rad, fill="black")
+        canvas.create_oval(sPd[0]-rad, sPd[1]-rad, sPd[0]+rad, sPd[1]+rad, fill="black")
 
     
     def findCrossingPoint(self, xa, ya, xb, yb, xc, yc, xd, yd):
@@ -62,13 +78,13 @@ class points:
         dYac = self.yc - self.ya
         dXcd = self.xd - self.xc
 
-        licz = (dXac * dYcd) - (dYac * dXcd)
-        mian = (dXab * dYcd) - (dYab * dXcd)
+        nominator = (dXac * dYcd) - (dYac * dXcd)
+        denominator = (dXab * dYcd) - (dYab * dXcd)
         
-        if mian == 0:
+        if denominator == 0:
             return 1
 
-        self.t1 = licz/mian
+        self.t1 = nominator/denominator
         self.t2 = ((dXac * dYab) - (dYac * dXab)) / ((dXab * dYcd) - (dYab * dXcd))
 
         self.px = self.xa + (self.t1*dXab)
