@@ -13,7 +13,8 @@ IFrame.addLoadButton()
 
 MFrame.addFirstChangeColorButton()
 MFrame.addSecondChangeColorButton()
-MFrame.addHideDashLines()
-MFrame.addShowPointsLabels()
+MFrame.addHideDashLinesButton()
+MFrame.addShowPointsLabelsButton()
+MFrame.addExitButton()
 
 wnd.root.mainloop()
