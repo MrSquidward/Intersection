@@ -35,10 +35,10 @@ class Points:
         return scaledX, scaledY
 
     def addPointsLabels(self, P1, P2, P3, P4):
-        ALabel = tk.Label(self.canvas, text='A', bg='white')
-        BLabel = tk.Label(self.canvas, text='B', bg='white')
-        CLabel = tk.Label(self.canvas, text='C', bg='white')
-        DLabel = tk.Label(self.canvas, text='D', bg='white')
+        ALabel = tk.Label(self.canvas, text='A', font=('Arial', 10), bg='white')
+        BLabel = tk.Label(self.canvas, text='B', font=('Arial', 10), bg='white')
+        CLabel = tk.Label(self.canvas, text='C', font=('Arial', 10), bg='white')
+        DLabel = tk.Label(self.canvas, text='D', font=('Arial', 10), bg='white')
 
         self.canvas.create_window(P1[0]+15, P1[1]+15, window=ALabel, tags='AL')
         self.canvas.create_window(P2[0]+15, P2[1]+15, window=BLabel, tags='BL')
@@ -68,11 +68,13 @@ class Points:
 
         if not 0 <= self.t1 <= 1:
             nearestPt = findNearestPoint(sPp, sPa, sPb)
-            self.canvas.create_line(sPp[0], sPp[1], nearestPt[0], nearestPt[1], dash=(6, 4), state='normal',tags='lined1')
+            self.canvas.create_line(sPp[0], sPp[1], nearestPt[0], nearestPt[1],
+                                    dash=(6, 4), state='normal',tags='lined1')
 
         if not 0 <= self.t2 <= 1:
             nearestPt = findNearestPoint(sPp, sPc, sPd)
-            self.canvas.create_line(sPp[0], sPp[1], nearestPt[0], nearestPt[1], dash=(6, 4), state='normal', tags='lined2')
+            self.canvas.create_line(sPp[0], sPp[1], nearestPt[0], nearestPt[1],
+                                    dash=(6, 4), state='normal', tags='lined2')
 
         rad = 5  # radius
         canvas.create_oval(sPp[0] - rad, sPp[1] - rad, sPp[0] + rad, sPp[1] + rad, fill='red')
@@ -185,32 +187,32 @@ class MarginFrame:
             self.canvas.itemconfig('DL', state='normal')
 
     def addFirstChangeColorButton(self):
-        changeColorButton = tk.Button(self.MarginFrame, font=40, text='Change color \n of first line',
+        changeColorButton = tk.Button(self.MarginFrame, font=('Arial', 14), text='Change color \n of first line',
                                       command=self.callbackFirstChangeColorBtn)
 
         changeColorButton.place(relx=0.1, rely=0.1, width=170)
 
     def addSecondChangeColorButton(self):
-        changeColorButton = tk.Button(self.MarginFrame, font=40, text='Change color \n of second line',
+        changeColorButton = tk.Button(self.MarginFrame, font=('Arial', 14), text='Change color \n of second line',
                                       command=self.callbackSecondChangeColorBtn)
 
         changeColorButton.place(relx=0.1, rely=0.25, width=170)
 
     def addHideDashLinesButton(self):
-        hideDashLinesButton = tk.Button(self.MarginFrame, font=40, text='Hide/Show Dash \n Lines',
+        hideDashLinesButton = tk.Button(self.MarginFrame, font=('Arial', 14), text='Hide/Show Dash \n Lines',
                                         command=self.callbackHideDashLinesBtn)
 
-        hideDashLinesButton.place(relx=0.1, rely=0.40, width=170)
+        hideDashLinesButton.place(relx=0.1, rely=0.4, width=170)
 
     def addShowPointsLabelsButton(self):
-        showPointsLabelsButton = tk.Button(self.MarginFrame, font=40, text='Show/Hide Points \n Labels',
-                                        command=self.callbackShowPointsLabelsBtn)
+        showPointsLabelsButton = tk.Button(self.MarginFrame, font=('Arial', 14), text='Show/Hide Points \n Labels',
+                                            command=self.callbackShowPointsLabelsBtn)
 
         showPointsLabelsButton.place(relx=0.1, rely=0.55, width=170)
 
     def addExitButton(self):
-        exitButton = tk.Button(self.MarginFrame, font=40, text='Exit',
-                                        command=lambda: self.root.destroy())
+        exitButton = tk.Button(self.MarginFrame, font=('Arial', 14), text='Exit',
+                                command=lambda: self.root.destroy())
 
         exitButton.place(relx=0.1, rely=0.9, width=170)
 
@@ -224,14 +226,14 @@ class InputFrame:
         self.Input = tk.Frame(self.root, height=500, width=500)
         self.Input.pack(side=tk.LEFT)
 
-        self.xaEntry = tk.Entry(self.Input, font=40)
-        self.yaEntry = tk.Entry(self.Input, font=40)
-        self.xbEntry = tk.Entry(self.Input, font=40)
-        self.ybEntry = tk.Entry(self.Input, font=40)
-        self.xcEntry = tk.Entry(self.Input, font=40)
-        self.ycEntry = tk.Entry(self.Input, font=40)
-        self.xdEntry = tk.Entry(self.Input, font=40)
-        self.ydEntry = tk.Entry(self.Input, font=40)
+        self.xaEntry = tk.Entry(self.Input, font=('Arial', 14))
+        self.yaEntry = tk.Entry(self.Input, font=('Arial', 14))
+        self.xbEntry = tk.Entry(self.Input, font=('Arial', 14))
+        self.ybEntry = tk.Entry(self.Input, font=('Arial', 14))
+        self.xcEntry = tk.Entry(self.Input, font=('Arial', 14))
+        self.ycEntry = tk.Entry(self.Input, font=('Arial', 14))
+        self.xdEntry = tk.Entry(self.Input, font=('Arial', 14))
+        self.ydEntry = tk.Entry(self.Input, font=('Arial', 14))
 
         self.errorInfoLabelText = tk.StringVar()
         self.errorInfoLabelText.set(' ')
@@ -249,7 +251,7 @@ class InputFrame:
         self.crossPointLocation.set(' ')
 
     def addEncourageLabel(self):
-        introLb = tk.Label(self.Input, font=40, text='Enter coordinates of four points: ')
+        introLb = tk.Label(self.Input, font=('Arial', 14), text='Enter coordinates of four points: ')
         introLb.place(relx=0.01, rely=0.01)
 
     def addInputsFields(self):
@@ -263,14 +265,14 @@ class InputFrame:
         self.ydEntry.place(relx=0.6, rely=0.4, relwidth=0.3)
 
     def addInputsLabels(self):
-        xaLabel = tk.Label(self.Input, font=40, text='Xa:')
-        yaLabel = tk.Label(self.Input, font=40, text='Ya:')
-        xbLabel = tk.Label(self.Input, font=40, text='Xb:')
-        ybLabel = tk.Label(self.Input, font=40, text='Yb:')
-        xcLabel = tk.Label(self.Input, font=40, text='Xc:')
-        ycLabel = tk.Label(self.Input, font=40, text='Yc:')
-        xdLabel = tk.Label(self.Input, font=40, text='Xd:')
-        ydLabel = tk.Label(self.Input, font=40, text='Yd:')
+        xaLabel = tk.Label(self.Input, font=('Arial', 14), text='Xa:')
+        yaLabel = tk.Label(self.Input, font=('Arial', 14), text='Ya:')
+        xbLabel = tk.Label(self.Input, font=('Arial', 14), text='Xb:')
+        ybLabel = tk.Label(self.Input, font=('Arial', 14), text='Yb:')
+        xcLabel = tk.Label(self.Input, font=('Arial', 14), text='Xc:')
+        ycLabel = tk.Label(self.Input, font=('Arial', 14), text='Yc:')
+        xdLabel = tk.Label(self.Input, font=('Arial', 14), text='Xd:')
+        ydLabel = tk.Label(self.Input, font=('Arial', 14), text='Yd:')
 
         xaLabel.place(relx=0.01, rely=0.1)
         yaLabel.place(relx=0.5, rely=0.1)
@@ -283,7 +285,7 @@ class InputFrame:
 
     def addErrorLabel(self):
         self.errorInfoLabelText.set('Lines are parallel \n or inputs are incorrect!!')
-        self.errorInfoLabel = tk.Label(self.Input, font=40, textvariable=self.errorInfoLabelText)
+        self.errorInfoLabel = tk.Label(self.Input, font=('Arial', 14), textvariable=self.errorInfoLabelText)
         self.errorInfoLabel.place(relx=0.2, rely=0.6)
 
     def addResultLabel(self):
@@ -291,9 +293,9 @@ class InputFrame:
         self.pxLabelText.set('Xp:   ' + str(self.Pts.px))
         self.pyLabelText.set('Yp:   ' + str(self.Pts.py))
 
-        resultLabel = tk.Label(self.Input, font=40, textvariable=self.resultLabelText)
-        pxLabel = tk.Label(self.Input, font=40, textvariable=self.pxLabelText)
-        pyLabel = tk.Label(self.Input, font=40, textvariable=self.pyLabelText)
+        resultLabel = tk.Label(self.Input, font=('Arial', 14), textvariable=self.resultLabelText)
+        pxLabel = tk.Label(self.Input, font=('Arial', 14), textvariable=self.pxLabelText)
+        pyLabel = tk.Label(self.Input, font=('Arial', 14), textvariable=self.pyLabelText)
 
         resultLabel.place(relx=0.01, rely=0.6)
         pxLabel.place(relx=0.01, rely=0.7)
@@ -334,7 +336,7 @@ class InputFrame:
         else:
             self.crossPointLocation.set('Intersection is at extension of line segments')
 
-        crossInfoLabel = tk.Label(self.Input, font=40, textvariable=self.crossPointLocation)
+        crossInfoLabel = tk.Label(self.Input, font=('Arial', 14), textvariable=self.crossPointLocation)
         crossInfoLabel.place(relx=0.01, rely=0.8)
 
         self.resultLabelText.set('Point of intersection: ')
@@ -361,7 +363,7 @@ class InputFrame:
         self.clearLabelsText()
 
     def addComputeButton(self):
-        computeButton = tk.Button(self.Input, font=40, text='Compute intersection',
+        computeButton = tk.Button(self.Input, font=('Arial', 14), text='Compute intersection',
                                   command=lambda: self.callbackComputeBtn(
                                       self.xaEntry.get(), self.yaEntry.get(),
                                       self.xbEntry.get(), self.ybEntry.get(),
@@ -372,13 +374,13 @@ class InputFrame:
         computeButton.place(relx=0.25, rely=0.5, width=220)
 
     def addLoadButton(self):
-        loadButton = tk.Button(self.Input, font=40, text='Load',
+        loadButton = tk.Button(self.Input, font=('Arial', 14), text='Load',
                                 command=self.callbackLoadBtn)
 
         loadButton.place(relx=0.2, rely=0.9, width=100)
 
     def addResetButton(self):
-        resetButton = tk.Button(self.Input, font=40, text='Reset',
+        resetButton = tk.Button(self.Input, font=('Arial', 14), text='Reset',
                                 command=self.callbackResetBtn)
 
         resetButton.place(relx=0.5, rely=0.9, width=100)
